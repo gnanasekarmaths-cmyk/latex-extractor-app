@@ -1,0 +1,259 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Brand palette ──────────────────────────────────────────── */
+  --color-primary: #7C3AED;
+  --color-primary-light: #A78BFA;
+  --color-primary-dark: #5B21B6;
+  --color-secondary: #1E293B;
+  --color-secondary-light: #334155;
+  --color-secondary-dark: #0F172A;
+  --color-accent: #22D3EE;
+  --color-accent-light: #67E8F9;
+  --color-accent-dark: #0891B2;
+
+  /* ── Surfaces ───────────────────────────────────────────────── */
+  --color-background: #0F172A;
+  --color-surface: rgba(255, 255, 255, 0.05);
+  --color-surface-raised: rgba(255, 255, 255, 0.08);
+  --color-surface-overlay: rgba(255, 255, 255, 0.12);
+
+  /* ── Borders ────────────────────────────────────────────────── */
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-glow: #7C3AED;
+
+  /* ── Text ───────────────────────────────────────────────────── */
+  --color-text-primary: #F1F5F9;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+
+  /* ── Glass ──────────────────────────────────────────────────── */
+  --color-glass: rgba(15, 23, 42, 0.72);
+  --color-glass-border: rgba(124, 58, 237, 0.15);
+
+  /* ── Semantic ───────────────────────────────────────────────── */
+  --color-success: #34D399;
+  --color-error: #FB7185;
+  --color-warning: #FBBF24;
+
+  /* ── Compat aliases (used in App.css) ───────────────────────── */
+  --color-accent-hover: #67E8F9;
+  --color-accent-glow: rgba(124, 58, 237, 0.4);
+
+  /* ── Typography ─────────────────────────────────────────────── */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* ── Border radius ──────────────────────────────────────────── */
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+
+  /* ── Backdrop blur ──────────────────────────────────────────── */
+  --blur-glass: 12px;
+  --blur-strong: 20px;
+
+  /* ── Box shadows ────────────────────────────────────────────── */
+  --shadow-soft-glow: 0 0 20px rgba(124, 58, 237, 0.15), 0 0 60px rgba(124, 58, 237, 0.05);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(124, 58, 237, 0.1);
+
+  /* ── Animations ─────────────────────────────────────────────── */
+  --animate-fade-in: fade-in 0.35s ease-out both;
+  --animate-scale-in: scale-in 0.25s ease-out both;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+
+  @keyframes fade-in {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.1), 0 0 0 0 rgba(124, 58, 237, 0);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(124, 58, 237, 0.25), 0 0 0 6px rgba(124, 58, 237, 0.06);
+    }
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: var(--color-background);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  /* Subtle animated gradient background */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 58, 237, 0.08), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(34, 211, 238, 0.06), transparent 50%),
+      var(--color-background);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-muted);
+  }
+
+  code {
+    font-family: var(--font-mono);
+  }
+
+  /* Light mode: adjust color-scheme and gradient */
+  [data-theme="light"] {
+    color-scheme: light;
+  }
+  [data-theme="light"] body::before {
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 58, 237, 0.04), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(34, 211, 238, 0.03), transparent 50%),
+      #F8FAFC;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITY CLASSES — usable like any Tailwind class
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Glassmorphism ────────────────────────────────────────────── */
+/* Base:    .glass           — standard frosted panel              */
+/* Heavier: .glass-strong    — thicker frost + brighter border     */
+/* Subtle:  .glass-subtle    — barely-there tint, no border        */
+
+@utility glass {
+  background: var(--color-glass);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-xl);
+}
+
+@utility glass-strong {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(var(--blur-strong));
+  -webkit-backdrop-filter: blur(var(--blur-strong));
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-soft-glow);
+}
+
+@utility glass-subtle {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-xl);
+}
+
+/* ── Gradient backgrounds ─────────────────────────────────────── */
+/* .gradient-dark     — default page-section gradient              */
+/* .gradient-radial   — centered radial violet glow                */
+/* .gradient-mesh     — multi-stop mesh texture                    */
+/* .gradient-accent   — horizontal violet → cyan sweep             */
+
+@utility gradient-dark {
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    var(--color-secondary) 50%,
+    var(--color-background) 100%
+  );
+}
+
+@utility gradient-radial {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 30%, rgba(124, 58, 237, 0.12), transparent 70%),
+    var(--color-background);
+}
+
+@utility gradient-mesh {
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 10%, rgba(124, 58, 237, 0.10), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 85% 80%, rgba(34, 211, 238, 0.08), transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(167, 139, 250, 0.05), transparent 50%),
+    var(--color-background);
+}
+
+@utility gradient-accent {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+}
+
+/* ── Card presets ─────────────────────────────────────────────── */
+/* .card          — standard elevated card                         */
+/* .card-hover    — adds interactive lift + glow on hover          */
+/* .card-flat     — no shadow, border-only card                    */
+
+@utility card {
+  background: var(--color-glass);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+@utility card-hover {
+  background: var(--color-glass);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  &:hover {
+    border-color: var(--color-glass-border);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+  }
+}
+
+@utility card-flat {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem;
+  transition: border-color 0.2s ease;
+  &:hover {
+    border-color: var(--color-glass-border);
+  }
+}
