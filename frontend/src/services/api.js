@@ -15,7 +15,7 @@ import axios from "axios";
 
 // ── Config ──────────────────────────────────────────────────────────────
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8001/api";
+const BASE_URL = process.env.REACT_APP_API_BASE_URL?.trim() || "https://latex-extractor-backend.onrender.com/api";
 
 // Axios instance (used by extractEquation and any legacy callers)
 const API = axios.create({
