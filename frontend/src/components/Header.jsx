@@ -1,4 +1,4 @@
-/* ─── Header.jsx — Premium SaaS-level sticky glassmorphism navbar ── */
+/* ─── Header.jsx — Premium SaaS-level sticky glassmorphism navbar v2 ── */
 import { useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
