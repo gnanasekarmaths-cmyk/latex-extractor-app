@@ -25,7 +25,7 @@ class Settings:
 
     # CORS origins allowed by the frontend
     CORS_ORIGINS: list[str] = os.getenv(
-        "CORS_ORIGINS", "http://localhost:3002,https://frontend-beryl-eta-skcq2mv6q7.vercel.app,https://mis.ganithra.org"
+        "CORS_ORIGINS", "http://localhost:3002,https://frontend-beryl-eta-skcq2mv6q7.vercel.app,https://mis.ganitra.org"
     ).split(",")
 
     # Device for pix2tex model inference ("cpu" or "cuda")
