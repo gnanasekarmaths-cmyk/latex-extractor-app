@@ -29,15 +29,6 @@ export default function Header({ theme, toggleTheme }) {
           {/* ── LEFT: Branding (Logo + Text) ──────────────────── */}
           {/* ═══════════════════════════════════════════════════ */}
           <Link to="/" className="flex items-center gap-3 no-underline group">
-            {/* Logo — small icon, contained, never stretches */}
-            <div className="flex-shrink-0 overflow-hidden rounded-md w-7 h-7 md:w-9 md:h-9">
-              <img
-                src="/logo.png"
-                alt="MIS-AI Logo"
-                className="h-full w-full object-contain opacity-90 group-hover:opacity-100
-                           transition-all duration-300"
-              />
-            </div>
 
             {/* Text stack — MIS-AI is the visual hero */}
             <div className="flex flex-col leading-tight">
