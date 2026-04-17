@@ -1,7 +1,7 @@
 """
 Extract route — receives a filename + bounding-box coordinates,
-crops the region as a high-res image, sends it to the Hugging Face
-pix2tex Inference API, and returns the LaTeX result.
+crops the region as a high-res image, sends it to Google Gemini Flash
+for LaTeX equation OCR, and returns the result.
 """
 
 import logging

@@ -59,4 +59,4 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    return {"status": "ok"}
+    return {"status": "ok", "engine": "gemini-flash"}
