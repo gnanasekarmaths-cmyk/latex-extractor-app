@@ -34,11 +34,8 @@ class Settings:
     ]
     CORS_ORIGINS: list[str] = list(set(_env_origins + _EXTRA_ORIGINS))
 
-    # Device for pix2tex model inference ("cpu" or "cuda")
-    MODEL_DEVICE: str = os.getenv("MODEL_DEVICE", "cpu")
-
-    # Max seconds to wait for an OCR run
-    OCR_TIMEOUT_SECONDS: int = int(os.getenv("OCR_TIMEOUT_SECONDS", "120"))
+    # Hugging Face Inference API token (optional — avoids rate-limiting)
+    HF_TOKEN: str | None = os.getenv("HF_TOKEN", None)
 
     # Maximum upload size in megabytes
     UPLOAD_MAX_SIZE_MB: int = int(os.getenv("UPLOAD_MAX_SIZE_MB", "20"))
