@@ -1,4 +1,4 @@
-/* ─── Header.jsx — Sticky header with logo + navigation ─────── */
+/* ─── Header.jsx — Premium sticky glassmorphism header ─────── */
 import { useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,68 +18,78 @@ export default function Header({ theme, toggleTheme }) {
   const closeMobile = useCallback(() => setMobileMenuOpen(false), []);
 
   return (
-    <header className="app-header">
-      {/* ── Row 1: Logo + Title ──────────────────────────────── */}
-      <div className="header-top">
-        <Link to="/" className="header-logos" style={{ textDecoration: "none" }}>
-          <img
-            src="/logo.png"
-            alt="MIS-AI Logo"
-            className="header-logo-img"
-          />
-        </Link>
+    <header className="sticky top-0 z-50 w-full bg-white/70 dark:bg-[#0f172a]/80 backdrop-blur-md shadow-md border-b border-white/10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
+        {/* ── Main row: Brand (left) + Nav (right) ──────────── */}
+        <div className="flex items-center justify-between">
 
-        <motion.div
-          className="header-title-block"
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: [0.22, 0.61, 0.36, 1] }}
-        >
-          <h1 className="header-main-title">
-            MIS-AI: Mathematical Intelligence System
-          </h1>
-          <p className="header-subtitle">Infinity Research and Development Institute</p>
-          <p className="header-tagline">
-            Equation Recognition • AI Processing • LaTeX Generation
-          </p>
-        </motion.div>
+          {/* ── Left: Logo + Text block ─────────────────────── */}
+          <Link to="/" className="flex items-center gap-3 no-underline group">
+            {/* Logo */}
+            <img
+              src="/logo.png"
+              alt="MIS-AI Logo"
+              className="h-12 md:h-14 w-auto rounded-xl object-contain shrink-0
+                         ring-1 ring-purple-500/20 group-hover:ring-purple-500/40
+                         transition-all duration-300"
+            />
 
-        {/* Mobile hamburger */}
-        <button
-          className="hamburger md:hidden"
-          onClick={() => setMobileMenuOpen((o) => !o)}
-          aria-label="Toggle menu"
-        >
-          <motion.svg
-            width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-            animate={mobileMenuOpen ? { rotate: 90 } : { rotate: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {mobileMenuOpen ? (
-              <>
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </>
-            ) : (
-              <>
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </>
-            )}
-          </motion.svg>
-        </button>
-      </div>
+            {/* Stacked text */}
+            <div className="flex flex-col leading-tight">
+              {/* App name — bold gradient */}
+              <span
+                className="text-2xl md:text-4xl font-extrabold tracking-wide
+                           bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500
+                           bg-clip-text text-transparent"
+              >
+                MIS-AI
+              </span>
 
-      {/* ── Row 2: Desktop Navigation ────────────────────────── */}
-      <nav className="header-nav hidden md:flex">
-        <div className="header-nav-inner">
-          <div id="header-extract-slot" className="flex items-center" />
-          <div className="header-nav-links">
+              {/* Subtitle — clean academic */}
+              <span className="text-[11px] md:text-sm font-medium text-gray-400 tracking-wide">
+                Mathematical Intelligence System
+              </span>
+
+              {/* Tagline — purple tone */}
+              <span className="hidden sm:block text-[9px] md:text-xs font-medium text-purple-400/80 tracking-wider mt-0.5">
+                Equation Recognition • AI Processing • LaTeX Generation
+              </span>
+            </div>
+          </Link>
+
+          {/* ── Right: Desktop navigation ───────────────────── */}
+          <nav className="hidden md:flex items-center gap-1">
+            {NAV_ITEMS.map(({ label, path }) => {
+              const isActive = location.pathname === path;
+              return (
+                <Link
+                  key={label}
+                  to={path}
+                  className={`relative px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300
+                    ${isActive
+                      ? "text-purple-400 bg-purple-500/10"
+                      : "text-gray-300 hover:text-white hover:bg-white/[0.06]"
+                    }`}
+                >
+                  {label}
+                  {/* Active indicator dot */}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-dot"
+                      className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-[3px] w-5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
+
             {/* Theme toggle */}
             <motion.button
-              className="theme-toggle-btn"
+              className="ml-2 flex items-center justify-center w-9 h-9 rounded-xl
+                         border border-white/10 bg-white/[0.04] text-gray-400
+                         hover:border-purple-500/40 hover:text-purple-400
+                         transition-all duration-300 cursor-pointer"
               onClick={toggleTheme}
               title={theme === "dark" ? "Light mode" : "Dark mode"}
               whileHover={{ scale: 1.08 }}
@@ -108,43 +118,74 @@ export default function Header({ theme, toggleTheme }) {
                 )}
               </AnimatePresence>
             </motion.button>
+          </nav>
 
-            {NAV_ITEMS.map(({ label, path }) => (
-              <Link
-                key={label}
-                to={path}
-                className={`nav-link${location.pathname === path ? " nav-link--active" : ""}`}
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
+          {/* ── Mobile hamburger ────────────────────────────── */}
+          <button
+            className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl
+                       border border-white/10 bg-white/[0.04] text-gray-300
+                       hover:bg-white/[0.08] transition-all duration-200 cursor-pointer"
+            onClick={() => setMobileMenuOpen((o) => !o)}
+            aria-label="Toggle menu"
+          >
+            <motion.svg
+              width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              animate={mobileMenuOpen ? { rotate: 90 } : { rotate: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {mobileMenuOpen ? (
+                <>
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </>
+              ) : (
+                <>
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </>
+              )}
+            </motion.svg>
+          </button>
         </div>
-      </nav>
+      </div>
 
-      {/* ── Mobile dropdown ──────────────────────────────────── */}
+      {/* ── Mobile dropdown menu ────────────────────────────── */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            className="mobile-menu md:hidden"
+            className="md:hidden border-t border-white/10 bg-[#0f172a]/95 backdrop-blur-lg"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
           >
             <nav className="flex flex-col gap-1 px-4 pb-4 pt-2">
-              {NAV_ITEMS.map(({ label, path }) => (
-                <Link
-                  key={label}
-                  to={path}
-                  className={`mobile-nav-link${location.pathname === path ? " mobile-nav-link--active" : ""}`}
-                  onClick={closeMobile}
-                >
-                  {label}
-                </Link>
-              ))}
+              {NAV_ITEMS.map(({ label, path }) => {
+                const isActive = location.pathname === path;
+                return (
+                  <Link
+                    key={label}
+                    to={path}
+                    onClick={closeMobile}
+                    className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200
+                      ${isActive
+                        ? "text-purple-400 bg-purple-500/10"
+                        : "text-gray-300 hover:text-white hover:bg-white/[0.06]"
+                      }`}
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
               <div className="flex gap-2 mt-2 pt-2 border-t border-white/10">
-                <button className="theme-toggle-btn flex-1" onClick={toggleTheme}>
+                <button
+                  className="flex-1 px-4 py-2 rounded-xl text-sm font-medium
+                             border border-white/10 bg-white/[0.04] text-gray-300
+                             hover:bg-white/[0.08] transition-all duration-200 cursor-pointer"
+                  onClick={toggleTheme}
+                >
                   {theme === "dark" ? "☀ Light" : "🌙 Dark"}
                 </button>
               </div>
