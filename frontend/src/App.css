@@ -1233,6 +1233,15 @@
   max-width: 640px;
 }
 
+/* Hero logo — same size as footer logo */
+.hero-logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 2px 8px rgba(124, 58, 237, 0.25));
+}
+
 /* Small badge above title */
 .hero-badge {
   display: inline-flex;

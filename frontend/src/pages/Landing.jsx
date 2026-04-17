@@ -22,11 +22,19 @@ export default function Landing() {
       <section className="hero-section">
         <div className="hero-bg-gradient" />
         <div className="hero-content">
-          <motion.span className="hero-badge" {...fadeUp(0)}>
+          {/* Hero Logo */}
+          <motion.img
+            src="/logo.png"
+            alt="MIS-AI"
+            className="hero-logo"
+            {...fadeUp(0)}
+          />
+
+          <motion.span className="hero-badge" {...fadeUp(0.05)}>
             🚀 AI-Powered • Next-Gen Math Tool
           </motion.span>
 
-          <motion.h1 className="hero-title" {...fadeUp(0.1)}>
+          <motion.h1 className="hero-title" {...fadeUp(0.15)}>
             AI-Powered{" "}
             <span className="hero-title-accent">Mathematical Intelligence</span>{" "}
             System
