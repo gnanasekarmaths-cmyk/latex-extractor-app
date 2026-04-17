@@ -18,40 +18,40 @@ export default function Header({ theme, toggleTheme }) {
   const closeMobile = useCallback(() => setMobileMenuOpen(false), []);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/70 dark:bg-[#0f172a]/80 backdrop-blur-md shadow-md border-b border-white/10">
+    <header className="sticky top-0 z-50 w-full">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
-        {/* ── Main row: Brand (left) + Nav (right) ──────────── */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between bg-white/70 dark:bg-[#0f172a]/80 backdrop-blur-md shadow-md rounded-2xl px-5 py-3">
 
           {/* ── Left: Logo + Text block ─────────────────────── */}
-          <Link to="/" className="flex items-center gap-3 no-underline group">
-            {/* Logo */}
+          <Link to="/" className="flex items-center gap-4 no-underline group">
+            {/* Logo — visually prominent */}
             <img
               src="/logo.png"
               alt="MIS-AI Logo"
-              className="h-6 md:h-8 w-auto rounded-lg object-contain shrink-0
-                         ring-1 ring-purple-500/20 group-hover:ring-purple-500/40
+              className="h-12 md:h-14 w-auto rounded-xl object-contain shrink-0
+                         ring-2 ring-purple-500/20 group-hover:ring-purple-500/50
+                         shadow-lg shadow-purple-500/10 group-hover:shadow-purple-500/20
                          transition-all duration-300"
             />
 
-            {/* Stacked text */}
+            {/* Stacked text — visually equal weight to logo */}
             <div className="flex flex-col leading-tight">
-              {/* App name — bold gradient */}
+              {/* App name — bold gradient, dominant */}
               <span
                 className="text-2xl md:text-4xl font-extrabold tracking-wide
                            bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500
-                           bg-clip-text text-transparent"
+                           bg-clip-text text-transparent drop-shadow-sm"
               >
                 MIS-AI
               </span>
 
-              {/* Subtitle — clean academic */}
-              <span className="text-[11px] md:text-sm font-medium text-gray-400 tracking-wide">
+              {/* Subtitle — clean academic font */}
+              <span className="text-[11px] md:text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wide">
                 Mathematical Intelligence System
               </span>
 
-              {/* Tagline — purple tone */}
-              <span className="hidden sm:block text-[9px] md:text-xs font-medium text-purple-400/80 tracking-wider mt-0.5">
+              {/* Tagline — purple highlight */}
+              <span className="hidden sm:block text-[9px] md:text-xs font-semibold text-purple-500/80 dark:text-purple-400/80 tracking-wider mt-0.5">
                 Equation Recognition • AI Processing • LaTeX Generation
               </span>
             </div>
@@ -65,10 +65,11 @@ export default function Header({ theme, toggleTheme }) {
                 <Link
                   key={label}
                   to={path}
-                  className={`relative px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300
+                  className={`relative px-4 py-2 rounded-xl text-sm font-semibold
+                    transition-all duration-300 ease-out
                     ${isActive
-                      ? "text-purple-400 bg-purple-500/10"
-                      : "text-gray-300 hover:text-white hover:bg-white/[0.06]"
+                      ? "text-purple-400 bg-purple-500/10 shadow-sm shadow-purple-500/10"
+                      : "text-gray-600 dark:text-gray-300 hover:text-purple-500 dark:hover:text-white hover:bg-purple-50 dark:hover:bg-white/[0.06] hover:scale-105"
                     }`}
                 >
                   {label}
