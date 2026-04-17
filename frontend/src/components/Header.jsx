@@ -1,8 +1,9 @@
-/* ─── Header.jsx — Premium sticky glassmorphism header ─────── */
+/* ─── Header.jsx — Premium SaaS-level sticky glassmorphism navbar ── */
 import { useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
+/* ── Navigation items ─────────────────────────────────────────── */
 const NAV_ITEMS = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
@@ -14,81 +15,94 @@ const NAV_ITEMS = [
 export default function Header({ theme, toggleTheme }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-
   const closeMobile = useCallback(() => setMobileMenuOpen(false), []);
 
   return (
+    /* ── Sticky wrapper ───────────────────────────────────────── */
     <header className="sticky top-0 z-50 w-full">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
-        <div className="flex items-center justify-between bg-white/70 dark:bg-[#0f172a]/80 backdrop-blur-md shadow-md rounded-2xl px-5 py-3">
+      {/* ── Glass card with margin for floating effect ────────── */}
+      <div className="mx-4 mt-4 bg-white/70 dark:bg-[#0f172a]/80 backdrop-blur-md
+                      shadow-md rounded-2xl px-6 py-3">
+        <div className="flex items-center justify-between">
 
-          {/* ── Left: Logo + Text block ─────────────────────── */}
+          {/* ═══════════════════════════════════════════════════ */}
+          {/* ── LEFT: Branding (Logo + Text) ──────────────────── */}
+          {/* ═══════════════════════════════════════════════════ */}
           <Link to="/" className="flex items-center gap-3 no-underline group">
-            {/* Logo — supportive, smaller than text */}
+            {/* Logo — supportive, not dominant */}
             <img
               src="/logo.png"
               alt="MIS-AI Logo"
-              className="h-8 md:h-10 w-auto rounded-lg object-contain shrink-0 opacity-90
-                         ring-1 ring-purple-500/20 group-hover:ring-purple-500/40 group-hover:opacity-100
+              className="h-8 md:h-10 w-auto rounded-lg object-contain shrink-0
+                         opacity-90 group-hover:opacity-100
+                         ring-1 ring-purple-500/20 group-hover:ring-purple-500/40
                          transition-all duration-300"
             />
 
-            {/* Stacked text — MIS-AI dominates */}
+            {/* Text stack — MIS-AI is the visual hero */}
             <div className="flex flex-col leading-tight">
-              {/* App name — primary visual focus */}
-              <span
-                className="text-3xl md:text-5xl font-extrabold tracking-wide
-                           bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500
-                           bg-clip-text text-transparent"
-              >
+              {/* Main title — bold gradient, largest element */}
+              <span className="text-2xl md:text-4xl font-extrabold tracking-wide
+                               bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500
+                               bg-clip-text text-transparent">
                 MIS-AI
               </span>
 
-              {/* Subtitle — clean, understated */}
-              <span className="text-[10px] md:text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
+              {/* Subtitle — professional, understated */}
+              <span className="text-[10px] md:text-xs font-medium text-gray-500
+                               dark:text-gray-400 tracking-wide">
                 Mathematical Intelligence System
               </span>
 
-              {/* Tagline — very subtle */}
-              <span className="hidden sm:block text-[8px] md:text-[10px] font-medium text-purple-400/60 dark:text-purple-400/50 tracking-wider mt-0.5">
-                Equation Recognition • AI Processing • LaTeX Generation
+              {/* Tagline — very subtle purple accent */}
+              <span className="hidden sm:block text-[8px] md:text-[10px] font-medium
+                               text-purple-400/60 dark:text-purple-400/50
+                               tracking-wider mt-0.5">
+                Equation Recognition &bull; AI Processing &bull; LaTeX Generation
               </span>
             </div>
           </Link>
 
-          {/* ── Right: Desktop navigation ───────────────────── */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* ═══════════════════════════════════════════════════ */}
+          {/* ── RIGHT: Desktop navigation ─────────────────────── */}
+          {/* ═══════════════════════════════════════════════════ */}
+          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             {NAV_ITEMS.map(({ label, path }) => {
               const isActive = location.pathname === path;
               return (
                 <Link
                   key={label}
                   to={path}
-                  className={`relative px-4 py-2 rounded-xl text-sm font-semibold
-                    transition-all duration-300 ease-out
+                  className={`relative px-3.5 py-2 rounded-xl text-sm font-semibold
+                              transition-all duration-300 ease-out
                     ${isActive
-                      ? "text-purple-400 bg-purple-500/10 shadow-sm shadow-purple-500/10"
-                      : "text-gray-600 dark:text-gray-300 hover:text-purple-500 dark:hover:text-white hover:bg-purple-50 dark:hover:bg-white/[0.06] hover:scale-105"
+                      ? "text-purple-500 dark:text-purple-400 bg-purple-500/10"
+                      : "text-gray-600 dark:text-gray-300 hover:text-purple-500 dark:hover:text-purple-300 hover:bg-purple-50/80 dark:hover:bg-white/[0.06]"
                     }`}
                 >
                   {label}
-                  {/* Active indicator dot */}
+                  {/* Animated underline indicator */}
                   {isActive && (
                     <motion.span
-                      layoutId="nav-dot"
-                      className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-[3px] w-5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      layoutId="nav-underline"
+                      className="absolute bottom-0.5 left-1/2 -translate-x-1/2
+                                 h-[2.5px] w-5 rounded-full
+                                 bg-gradient-to-r from-purple-500 to-pink-500"
+                      transition={{ type: "spring", stiffness: 400, damping: 28 }}
                     />
                   )}
                 </Link>
               );
             })}
 
-            {/* Theme toggle */}
+            {/* Theme toggle button */}
             <motion.button
-              className="ml-2 flex items-center justify-center w-9 h-9 rounded-xl
-                         border border-white/10 bg-white/[0.04] text-gray-400
-                         hover:border-purple-500/40 hover:text-purple-400
+              className="ml-3 flex items-center justify-center w-9 h-9 rounded-xl
+                         border border-gray-200/60 dark:border-white/10
+                         bg-white/50 dark:bg-white/[0.04]
+                         text-gray-500 dark:text-gray-400
+                         hover:border-purple-400/50 hover:text-purple-500
+                         dark:hover:text-purple-400
                          transition-all duration-300 cursor-pointer"
               onClick={toggleTheme}
               title={theme === "dark" ? "Light mode" : "Dark mode"}
@@ -98,21 +112,31 @@ export default function Header({ theme, toggleTheme }) {
             >
               <AnimatePresence mode="wait" initial={false}>
                 {theme === "dark" ? (
-                  <motion.svg key="sun" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                    initial={{ opacity: 0, rotate: -90 }} animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: 90 }} transition={{ duration: 0.2 }}>
+                  <motion.svg key="sun" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" strokeWidth="2"
+                    strokeLinecap="round" strokeLinejoin="round"
+                    initial={{ opacity: 0, rotate: -90 }}
+                    animate={{ opacity: 1, rotate: 0 }}
+                    exit={{ opacity: 0, rotate: 90 }}
+                    transition={{ duration: 0.2 }}>
                     <circle cx="12" cy="12" r="5" />
-                    <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                    <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                   </motion.svg>
                 ) : (
-                  <motion.svg key="moon" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                    initial={{ opacity: 0, rotate: 90 }} animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: -90 }} transition={{ duration: 0.2 }}>
+                  <motion.svg key="moon" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" strokeWidth="2"
+                    strokeLinecap="round" strokeLinejoin="round"
+                    initial={{ opacity: 0, rotate: 90 }}
+                    animate={{ opacity: 1, rotate: 0 }}
+                    exit={{ opacity: 0, rotate: -90 }}
+                    transition={{ duration: 0.2 }}>
                     <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
                   </motion.svg>
                 )}
@@ -120,17 +144,23 @@ export default function Header({ theme, toggleTheme }) {
             </motion.button>
           </nav>
 
-          {/* ── Mobile hamburger ────────────────────────────── */}
+          {/* ═══════════════════════════════════════════════════ */}
+          {/* ── Mobile hamburger button ───────────────────────── */}
+          {/* ═══════════════════════════════════════════════════ */}
           <button
             className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl
-                       border border-white/10 bg-white/[0.04] text-gray-300
-                       hover:bg-white/[0.08] transition-all duration-200 cursor-pointer"
+                       border border-gray-200/60 dark:border-white/10
+                       bg-white/50 dark:bg-white/[0.04]
+                       text-gray-600 dark:text-gray-300
+                       hover:bg-purple-50 dark:hover:bg-white/[0.08]
+                       transition-all duration-200 cursor-pointer"
             onClick={() => setMobileMenuOpen((o) => !o)}
             aria-label="Toggle menu"
           >
             <motion.svg
               width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              stroke="currentColor" strokeWidth="2"
+              strokeLinecap="round" strokeLinejoin="round"
               animate={mobileMenuOpen ? { rotate: 90 } : { rotate: 0 }}
               transition={{ duration: 0.2 }}
             >
@@ -151,17 +181,21 @@ export default function Header({ theme, toggleTheme }) {
         </div>
       </div>
 
-      {/* ── Mobile dropdown menu ────────────────────────────── */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* ── Mobile dropdown menu ──────────────────────────────── */}
+      {/* ═══════════════════════════════════════════════════════ */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            className="md:hidden border-t border-white/10 bg-[#0f172a]/95 backdrop-blur-lg"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="md:hidden mx-4 mt-2 rounded-2xl overflow-hidden
+                       border border-gray-200/40 dark:border-white/10
+                       bg-white/90 dark:bg-[#0f172a]/95 backdrop-blur-lg shadow-lg"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <nav className="flex flex-col gap-1 px-4 pb-4 pt-2">
+            <nav className="flex flex-col gap-1 px-4 pb-4 pt-3">
               {NAV_ITEMS.map(({ label, path }) => {
                 const isActive = location.pathname === path;
                 return (
@@ -169,24 +203,30 @@ export default function Header({ theme, toggleTheme }) {
                     key={label}
                     to={path}
                     onClick={closeMobile}
-                    className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200
+                    className={`px-4 py-2.5 rounded-xl text-sm font-semibold
+                                transition-all duration-200
                       ${isActive
-                        ? "text-purple-400 bg-purple-500/10"
-                        : "text-gray-300 hover:text-white hover:bg-white/[0.06]"
+                        ? "text-purple-500 dark:text-purple-400 bg-purple-500/10"
+                        : "text-gray-600 dark:text-gray-300 hover:text-purple-500 dark:hover:text-white hover:bg-purple-50 dark:hover:bg-white/[0.06]"
                       }`}
                   >
                     {label}
                   </Link>
                 );
               })}
-              <div className="flex gap-2 mt-2 pt-2 border-t border-white/10">
+
+              {/* Mobile theme toggle */}
+              <div className="mt-2 pt-2 border-t border-gray-200/40 dark:border-white/10">
                 <button
-                  className="flex-1 px-4 py-2 rounded-xl text-sm font-medium
-                             border border-white/10 bg-white/[0.04] text-gray-300
-                             hover:bg-white/[0.08] transition-all duration-200 cursor-pointer"
+                  className="w-full px-4 py-2.5 rounded-xl text-sm font-medium
+                             border border-gray-200/60 dark:border-white/10
+                             bg-white/50 dark:bg-white/[0.04]
+                             text-gray-600 dark:text-gray-300
+                             hover:bg-purple-50 dark:hover:bg-white/[0.08]
+                             transition-all duration-200 cursor-pointer"
                   onClick={toggleTheme}
                 >
-                  {theme === "dark" ? "☀ Light" : "🌙 Dark"}
+                  {theme === "dark" ? "☀ Light Mode" : "🌙 Dark Mode"}
                 </button>
               </div>
             </nav>
