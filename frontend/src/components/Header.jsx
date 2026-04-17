@@ -38,7 +38,7 @@ export default function Header({ theme, toggleTheme }) {
           <h1 className="header-main-title">
             MIS-AI: Mathematical Intelligence System
           </h1>
-          <p className="header-subtitle">Department of Mathematics</p>
+          <p className="header-subtitle">Infinity Research and Development Institute</p>
           <p className="header-tagline">
             Equation Recognition • AI Processing • LaTeX Generation
           </p>

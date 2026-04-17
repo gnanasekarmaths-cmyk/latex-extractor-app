@@ -57,17 +57,18 @@ export default function Contact() {
             <div className="glass-card contact-info-card">
               <span className="contact-icon">📧</span>
               <h3>Email</h3>
-              <a href="mailto:info@ganitra.org">info@ganitra.org</a>
+              <a href="mailto:fdp@inmpa.com">fdp@inmpa.com</a>
             </div>
             <div className="glass-card contact-info-card">
               <span className="contact-icon">📞</span>
               <h3>Phone</h3>
-              <a href="tel:+919876543210">+91 98765 43210</a>
+              <a href="tel:+919994326512">+91 99943 26512</a>
             </div>
             <div className="glass-card contact-info-card">
               <span className="contact-icon">📍</span>
               <h3>Location</h3>
-              <p>Department of Mathematics</p>
+              <p>Infinity Research and Development Institute</p>
+              <p>Eachanari, Coimbatore, TN 641021, India</p>
             </div>
           </motion.div>
 

@@ -38,7 +38,7 @@ export default function About() {
               to give mathematicians, researchers, and students a tool that <em>just works</em>.
             </p>
             <p className="section-body">
-              Built at the Department of Mathematics, our system processes PDFs at the pixel
+              Built at the Infinity Research and Development Institute, our system processes PDFs at the pixel
               level, identifies equation regions through intelligent cropping, and leverages
               Google's Gemini Flash model to produce publication-ready LaTeX — all in under
               two seconds.

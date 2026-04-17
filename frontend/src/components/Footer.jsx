@@ -26,9 +26,10 @@ export default function Footer() {
         {/* Contact */}
         <div className="footer-links">
           <h4>Contact</h4>
-          <a href="mailto:info@ganitra.org">info@ganitra.org</a>
-          <a href="tel:+919876543210">+91 98765 43210</a>
-          <span>Department of Mathematics</span>
+          <a href="mailto:fdp@inmpa.com">fdp@inmpa.com</a>
+          <a href="tel:+919994326512">+91 99943 26512</a>
+          <span>Infinity Research and Development Institute</span>
+          <span>Eachanari, Coimbatore, TN 641021, India</span>
         </div>
       </div>
 
