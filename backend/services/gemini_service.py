@@ -19,7 +19,7 @@ logger = logging.getLogger("backend.services.gemini")
 
 _GEMINI_URL = (
     "https://generativelanguage.googleapis.com/v1beta/models/"
-    "gemini-2.0-flash:generateContent"
+    "gemini-flash-latest:generateContent"
 )
 
 _SYSTEM_PROMPT = (
@@ -68,15 +68,16 @@ async def predict_latex(image_bytes: bytes, api_key: str | None = None) -> str:
         },
     }
 
-    url = f"{_GEMINI_URL}?key={api_key}"
-
     async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
         logger.info("Sending image (%d bytes) to Gemini Flash …", len(image_bytes))
 
         resp = await client.post(
-            url,
+            _GEMINI_URL,
             json=payload,
-            headers={"Content-Type": "application/json"},
+            headers={
+                "Content-Type": "application/json",
+                "X-goog-api-key": api_key,
+            },
         )
 
         if resp.status_code != 200:
