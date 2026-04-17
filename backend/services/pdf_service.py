@@ -185,3 +185,101 @@ def crop_pdf_region(
     finally:
         doc.close()
     return out_path
+
+
+# ---------------------------------------------------------------------------
+# Unicode → LaTeX normalisation
+# ---------------------------------------------------------------------------
+
+_UNICODE_TO_LATEX = {
+    "α": r"\alpha", "β": r"\beta", "γ": r"\gamma", "δ": r"\delta",
+    "ε": r"\epsilon", "ζ": r"\zeta", "η": r"\eta", "θ": r"\theta",
+    "ι": r"\iota", "κ": r"\kappa", "λ": r"\lambda", "μ": r"\mu",
+    "ν": r"\nu", "ξ": r"\xi", "π": r"\pi", "ρ": r"\rho",
+    "σ": r"\sigma", "τ": r"\tau", "υ": r"\upsilon", "φ": r"\phi",
+    "χ": r"\chi", "ψ": r"\psi", "ω": r"\omega",
+    "Γ": r"\Gamma", "Δ": r"\Delta", "Θ": r"\Theta", "Λ": r"\Lambda",
+    "Ξ": r"\Xi", "Π": r"\Pi", "Σ": r"\Sigma", "Φ": r"\Phi",
+    "Ψ": r"\Psi", "Ω": r"\Omega",
+    "∞": r"\infty", "∂": r"\partial", "∇": r"\nabla",
+    "∑": r"\sum", "∏": r"\prod", "∫": r"\int",
+    "√": r"\sqrt", "±": r"\pm", "∓": r"\mp", "×": r"\times", "÷": r"\div",
+    "≤": r"\leq", "≥": r"\geq", "≠": r"\neq", "≈": r"\approx",
+    "≡": r"\equiv", "∝": r"\propto", "∈": r"\in", "∉": r"\notin",
+    "⊂": r"\subset", "⊃": r"\supset", "⊆": r"\subseteq", "⊇": r"\supseteq",
+    "∪": r"\cup", "∩": r"\cap", "∅": r"\emptyset",
+    "→": r"\to", "←": r"\leftarrow", "↔": r"\leftrightarrow",
+    "⇒": r"\Rightarrow", "⇐": r"\Leftarrow", "⇔": r"\Leftrightarrow",
+    "∀": r"\forall", "∃": r"\exists", "¬": r"\neg",
+    "∧": r"\wedge", "∨": r"\vee",
+    "⊗": r"\otimes", "⊕": r"\oplus",
+    "·": r"\cdot", "…": r"\ldots", "⋯": r"\cdots",
+    "ℝ": r"\mathbb{R}", "ℤ": r"\mathbb{Z}", "ℕ": r"\mathbb{N}",
+    "ℂ": r"\mathbb{C}", "ℚ": r"\mathbb{Q}",
+}
+
+
+def _normalize_to_latex(text: str) -> str:
+    """Replace Unicode math symbols with LaTeX commands."""
+    for char, cmd in _UNICODE_TO_LATEX.items():
+        text = text.replace(char, cmd)
+    return text
+
+
+# ---------------------------------------------------------------------------
+# Text-based region extraction
+# ---------------------------------------------------------------------------
+
+def extract_region_text(
+    pdf_path: Path,
+    page_number: int,
+    x: float,
+    y: float,
+    width: float,
+    height: float,
+    page_width: float | None = None,
+    page_height: float | None = None,
+) -> str:
+    """
+    Extract text from a bounding-box region of a PDF page using PyMuPDF.
+
+    Returns the extracted text with Unicode math symbols normalised to
+    LaTeX commands.
+    """
+    logger.info(
+        "extract_region_text  file=%s  page=%d  box=(%.1f, %.1f, %.1f, %.1f)",
+        pdf_path.name, page_number, x, y, width, height,
+    )
+
+    if page_number < 1:
+        raise ValueError("page_number must be >= 1.")
+
+    doc = fitz.open(pdf_path)
+    try:
+        if page_number > doc.page_count:
+            raise ValueError(
+                f"page_number {page_number} exceeds document length ({doc.page_count})."
+            )
+
+        page = doc.load_page(page_number - 1)
+
+        # Offset by page origin (CropBox / MediaBox may have non-zero origin)
+        ox, oy = page.rect.x0, page.rect.y0
+
+        clip = build_crop_rect(
+            x + ox, y + oy,
+            x + width + ox, y + height + oy,
+            page,
+        )
+
+        # Extract text within the clip rectangle
+        text = page.get_text("text", clip=clip).strip()
+
+        logger.info("Extracted %d chars from region.", len(text))
+
+        # Normalise Unicode math → LaTeX
+        latex = _normalize_to_latex(text)
+
+        return latex
+    finally:
+        doc.close()
