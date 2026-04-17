@@ -12,7 +12,7 @@ from fastapi.responses import JSONResponse
 
 from config import settings
 from services.pdf_service import get_upload_path, crop_pdf_region
-from services.hf_service import predict_latex
+from services.gemini_service import predict_latex
 
 router = APIRouter(tags=["extract"])
 logger = logging.getLogger("backend.extract")
@@ -74,7 +74,7 @@ async def extract_equation(
 
         latex_text = await predict_latex(
             image_bytes=image_bytes,
-            hf_token=settings.HF_TOKEN,
+            api_key=settings.GEMINI_API_KEY,
         )
 
         elapsed = time.perf_counter() - t0

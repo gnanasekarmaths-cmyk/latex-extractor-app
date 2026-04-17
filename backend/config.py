@@ -34,8 +34,8 @@ class Settings:
     ]
     CORS_ORIGINS: list[str] = list(set(_env_origins + _EXTRA_ORIGINS))
 
-    # Hugging Face Inference API token (optional — avoids rate-limiting)
-    HF_TOKEN: str | None = os.getenv("HF_TOKEN", None)
+    # Google Gemini API key (free at https://aistudio.google.com/apikey)
+    GEMINI_API_KEY: str | None = os.getenv("GEMINI_API_KEY", None)
 
     # Maximum upload size in megabytes
     UPLOAD_MAX_SIZE_MB: int = int(os.getenv("UPLOAD_MAX_SIZE_MB", "20"))
