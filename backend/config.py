@@ -24,9 +24,15 @@ class Settings:
     TEMP_DIR.mkdir(parents=True, exist_ok=True)
 
     # CORS origins allowed by the frontend
-    CORS_ORIGINS: list[str] = os.getenv(
-        "CORS_ORIGINS", "http://localhost:3002,https://frontend-beryl-eta-skcq2mv6q7.vercel.app,https://mis.ganitra.org"
-    ).split(",")
+    _EXTRA_ORIGINS = [
+        "http://localhost:3002",
+        "https://frontend-beryl-eta-skcq2mv6q7.vercel.app",
+        "https://mis.ganitra.org",
+    ]
+    _env_origins = [
+        o.strip() for o in os.getenv("CORS_ORIGINS", "").split(",") if o.strip()
+    ]
+    CORS_ORIGINS: list[str] = list(set(_env_origins + _EXTRA_ORIGINS))
 
     # Device for pix2tex model inference ("cpu" or "cuda")
     MODEL_DEVICE: str = os.getenv("MODEL_DEVICE", "cpu")
