@@ -29,15 +29,15 @@ export default function Header({ theme, toggleTheme }) {
           {/* ── LEFT: Branding (Logo + Text) ──────────────────── */}
           {/* ═══════════════════════════════════════════════════ */}
           <Link to="/" className="flex items-center gap-3 no-underline group">
-            {/* Logo — supportive, not dominant */}
-            <img
-              src="/logo.png"
-              alt="MIS-AI Logo"
-              className="h-8 md:h-10 w-auto rounded-lg object-contain shrink-0
-                         opacity-90 group-hover:opacity-100
-                         ring-1 ring-purple-500/20 group-hover:ring-purple-500/40
-                         transition-all duration-300"
-            />
+            {/* Logo — small icon, contained, never stretches */}
+            <div className="flex-shrink-0 overflow-hidden rounded-md w-7 h-7 md:w-9 md:h-9">
+              <img
+                src="/logo.png"
+                alt="MIS-AI Logo"
+                className="h-full w-full object-contain opacity-90 group-hover:opacity-100
+                           transition-all duration-300"
+              />
+            </div>
 
             {/* Text stack — MIS-AI is the visual hero */}
             <div className="flex flex-col leading-tight">
