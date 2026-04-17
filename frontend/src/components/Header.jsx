@@ -29,7 +29,7 @@ export default function Header({ theme, toggleTheme }) {
             <img
               src="/logo.png"
               alt="MIS-AI Logo"
-              className="h-12 md:h-14 w-auto rounded-xl object-contain shrink-0
+              className="h-8 md:h-10 w-auto rounded-lg object-contain shrink-0
                          ring-1 ring-purple-500/20 group-hover:ring-purple-500/40
                          transition-all duration-300"
             />
