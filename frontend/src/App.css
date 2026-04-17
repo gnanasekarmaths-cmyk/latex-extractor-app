@@ -1233,9 +1233,9 @@
   max-width: 640px;
 }
 
-/* Hero logo — same size as footer logo */
+/* Hero logo — compact */
 .hero-logo {
-  height: 36px;
+  height: 24px;
   width: auto;
   object-fit: contain;
   margin-bottom: 20px;
