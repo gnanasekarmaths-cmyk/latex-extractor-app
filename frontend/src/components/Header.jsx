@@ -96,6 +96,9 @@ export default function Header({ theme, toggleTheme }) {
               );
             })}
 
+            {/* Portal slot for Extract LaTeX button (injected by Home.jsx) */}
+            <div id="header-extract-slot" className="flex items-center" />
+
             {/* Theme toggle button */}
             <motion.button
               className="ml-3 flex items-center justify-center w-9 h-9 rounded-xl
