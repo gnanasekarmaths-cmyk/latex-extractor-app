@@ -23,35 +23,34 @@ export default function Header({ theme, toggleTheme }) {
         <div className="flex items-center justify-between bg-white/70 dark:bg-[#0f172a]/80 backdrop-blur-md shadow-md rounded-2xl px-5 py-3">
 
           {/* ── Left: Logo + Text block ─────────────────────── */}
-          <Link to="/" className="flex items-center gap-4 no-underline group">
-            {/* Logo — visually prominent */}
+          <Link to="/" className="flex items-center gap-3 no-underline group">
+            {/* Logo — supportive, smaller than text */}
             <img
               src="/logo.png"
               alt="MIS-AI Logo"
-              className="h-6 w-auto rounded-lg object-contain shrink-0
-                         ring-1 ring-purple-500/20 group-hover:ring-purple-500/50
-                         shadow-sm shadow-purple-500/10 group-hover:shadow-purple-500/20
+              className="h-8 md:h-10 w-auto rounded-lg object-contain shrink-0 opacity-90
+                         ring-1 ring-purple-500/20 group-hover:ring-purple-500/40 group-hover:opacity-100
                          transition-all duration-300"
             />
 
-            {/* Stacked text — visually equal weight to logo */}
+            {/* Stacked text — MIS-AI dominates */}
             <div className="flex flex-col leading-tight">
-              {/* App name — bold gradient, dominant */}
+              {/* App name — primary visual focus */}
               <span
-                className="text-2xl md:text-4xl font-extrabold tracking-wide
+                className="text-3xl md:text-5xl font-extrabold tracking-wide
                            bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500
-                           bg-clip-text text-transparent drop-shadow-sm"
+                           bg-clip-text text-transparent"
               >
                 MIS-AI
               </span>
 
-              {/* Subtitle — clean academic font */}
-              <span className="text-[11px] md:text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wide">
+              {/* Subtitle — clean, understated */}
+              <span className="text-[10px] md:text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
                 Mathematical Intelligence System
               </span>
 
-              {/* Tagline — purple highlight */}
-              <span className="hidden sm:block text-[9px] md:text-xs font-semibold text-purple-500/80 dark:text-purple-400/80 tracking-wider mt-0.5">
+              {/* Tagline — very subtle */}
+              <span className="hidden sm:block text-[8px] md:text-[10px] font-medium text-purple-400/60 dark:text-purple-400/50 tracking-wider mt-0.5">
                 Equation Recognition • AI Processing • LaTeX Generation
               </span>
             </div>
